@@ -340,6 +340,85 @@ body.light .help-content .formula { background: #f0f7f0; color: #006600; }
 }
 
 .help-close:hover { opacity: 1; }
+
+/* --- Mobile portrait --- */
+@media (max-width: 600px) {
+  .phrase {
+    font-size: 8vw;
+    padding: 0 6vw;
+  }
+
+  .timer {
+    font-size: 28px;
+    top: 12px;
+    left: 12px;
+  }
+
+  .controls {
+    top: auto;
+    bottom: 60px;
+    right: 50%;
+    transform: translateX(50%);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    max-width: 90vw;
+  }
+
+  button {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .hint { display: none; }
+
+  .speed-control {
+    bottom: 16px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .lb-label {
+    font-size: 12px;
+  }
+
+  .lb-text {
+    font-size: 7vw;
+  }
+
+  .lb-action {
+    font-size: 9vw;
+  }
+
+  .eb-reveal {
+    font-size: 8vw;
+  }
+
+  #nextBtn, #pauseBtn, #resetBtn { display: none; }
+
+  .lb-counter {
+    bottom: 130px;
+    font-size: 14px;
+  }
+
+  .help-content {
+    padding: 24px 20px;
+    font-size: 14px;
+  }
+
+  .help-content .comparison {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .help-content .etymology {
+    font-size: 16px;
+  }
+
+  .help-content .formula {
+    font-size: 16px;
+  }
+}
 </style>
 </head>
 <body class="dark">
@@ -354,7 +433,7 @@ body.light .help-content .formula { background: #f0f7f0; color: #006600; }
   <button id="themeToggle">Light</button>
   <button id="nextBtn">Next</button>
   <button id="pauseBtn">Pause</button>
-  <button id="fullscreenBtn">Fullscreen</button>
+  <button id="fullscreenBtn" title="Fullscreen"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button>
   <button id="resetBtn">Reset</button>
   <span style="width:1px; background:currentColor; opacity:0.2;"></span>
   <button id="helpBtn">?</button>
@@ -881,6 +960,13 @@ document.addEventListener("keydown", (e) => {
       durationLabel.textContent = duration + "s";
       break;
   }
+});
+
+// --- Touch: tap to advance ---
+document.body.addEventListener("click", (e) => {
+  if (e.target.closest(".controls, .speed-control, .help-overlay, button, input")) return;
+  if (currentMode === "eb") showNextEB();
+  else showNextLB();
 });
 
 // --- Start ---
