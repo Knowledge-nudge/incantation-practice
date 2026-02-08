@@ -363,7 +363,7 @@ body.light .help-content .formula { background: #f0f7f0; color: #006600; }
     justify-content: center;
     gap: 6px;
     max-width: 90vw;
-    opacity: 0.5;
+    opacity: 0.25;
   }
 
   .controls > span { display: none; }
@@ -429,7 +429,7 @@ body.light .help-content .formula { background: #f0f7f0; color: #006600; }
   <button id="modeEB" class="active-mode">EB</button>
   <button id="modeLB">LB折り</button>
   <span style="width:1px; background:currentColor; opacity:0.2;"></span>
-  <button id="themeToggle">Light</button>
+  <button id="themeToggle" title="テーマ切替"><svg id="themeIcon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg></button>
   <button id="nextBtn">Next</button>
   <button id="pauseBtn">Pause</button>
   <button id="fullscreenBtn" title="Fullscreen"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button>
@@ -876,7 +876,10 @@ modeLB.addEventListener("click", () => switchMode("lb"));
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
   document.body.classList.toggle("light");
-  themeToggle.textContent = document.body.classList.contains("dark") ? "Light" : "Dark";
+  const isDark = document.body.classList.contains("dark");
+  document.getElementById("themeIcon").innerHTML = isDark
+    ? '<circle cx="8" cy="8" r="4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/>'
+    : '<path d="M13.5 8a5.5 5.5 0 0 1-8.44 4.65A5.5 5.5 0 0 1 9.35 2.5 5.5 5.5 0 0 0 13.5 8z"/>';
 });
 
 nextBtn.addEventListener("click", () => {
